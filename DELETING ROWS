@@ -1,0 +1,15 @@
+-- DELETING ROWS
+
+DELETE FROM invoices
+WHERE invoices_id = 1
+
+SELECT *
+FROM clients
+WHERE name = 'Myworks'
+
+DELETE FROM invoices
+WHERE invoices_id = (
+   SELECT *
+   FROM clients
+   WHERE name = 'Myworks'
+)
