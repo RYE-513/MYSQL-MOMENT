@@ -1,0 +1,46 @@
+-- NATURAL JOINS
+
+USE sql_store;
+
+SELECT 
+     o.order_id,
+     c.first_name
+FROM orders o
+NATURAL JOIN customers c
+
+-- NATURAL JOIN are really easy to code but they can be a little bit dangerous and print unexpected result
+
+
+-- CROSS JOINS
+
+USE sql_store;
+
+SELECT
+     c.first_name AS customer,
+     p.name AS product
+FROM customers c
+CROSS JOIN products p
+ORDER BY c.first_name
+
+
+
+-- EXERCISE
+
+--- Do a CROSS JOIN between shippers and products
+
+--- IMPLICIT
+
+SELECT
+     sh.name AS shipper,
+     p.name AS product
+FROM shippers sh, products p
+ORDER BY sh.name
+
+-- EXPLICIT
+
+SELECT
+     sh.name AS shipper,
+     p.name AS product
+FROM shippers sh
+CROSS JOIN products p
+ORDER BY sh.name
