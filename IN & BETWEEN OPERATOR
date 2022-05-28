@@ -1,0 +1,51 @@
+
+-- IN OPERATOR
+
+SELECT *
+FROM customers
+WHERE state = 'VA' OR state = 'GA' OR state = 'FL' 
+
+-- much better to use 
+
+SELECT *
+FROM customers
+WHERE state IN ('VA','FL','GA')
+
+-- excluded specific data
+
+SELECT *
+FROM customers
+WHERE state NOT IN ('VA','FL','GA')
+
+-- EXERCISE
+
+-- Return products with
+-- quantity in stock equal to 49,38,72
+
+
+SELECT *
+FROM products
+WHERE quantity_in_stock IN (49,38,72)
+
+
+
+-- BETWEEN OPERATOR
+
+SELECT *
+FROM customers
+WHERE points >= 1000 AND points <= 3000
+
+-- much better to use
+
+SELECT *
+FROM customers
+WHERE points BETWEEN 1000 AND 3000
+
+-- EXERCISE
+
+-- Return customers born
+-- between 1/1/1190 and 1/1/20000
+
+SELECT *
+FROM customers
+WHERE birth_date BETWEEN '1990/01/01' AND '2000/01/01'
