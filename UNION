@@ -1,0 +1,75 @@
+-- UNION - joining two different queries in one result
+
+SELECT *
+   order_id,
+   order_date,
+   'ACTIVE' AS status
+FROM orders
+WHERE order_date >= '2019-01-01'
+
+
+SELECT *
+   order_id,
+   order_date,
+   'ACTIVE' AS status
+FROM orders
+WHERE order_date >= '2019-01-01'
+UNION
+SELECT *
+   order_id,
+   order_date,
+   'ARCHIVED' AS status
+FROM orders
+WHERE order_date >= '2019-01-01'
+
+
+SELECT first_name
+FROM customers
+UNION
+SELECT name
+FROM shippers
+
+-- UNION statement will be work if the both tables are equal queries if not it result to an error
+e.g.
+
+SELECT first_name, last_name
+FROM customers
+UNION
+SELECT name
+FROM shippers
+
+
+SELECT name AS full_name
+FROM shippers
+UNION
+SELECT first_name
+FROM customers
+
+-- EXERCISE
+
+USE sql_store;
+
+SELECT
+   customer_id,
+   first_name,
+   points,
+   'Bronze', AS type
+FROM customers
+WHERE points < 2000
+UNION
+SELECT
+   customer_id,
+   first_name,
+   points,
+   'Silver', AS type
+FROM customers
+WHERE points BETWEEN 2000 AND 3000
+UNION
+SELECT
+   customer_id,
+   first_name,
+   points,
+   'Gold', AS type
+FROM customers
+WHERE points > 3000
+ORDER BY first_name
