@@ -1,0 +1,52 @@
+-- SELECT DISTINCT is to avoid duplicate
+
+SELECT DISTINCT state
+FROM customers
+
+
+-- EXERCISE
+
+--- Return all the products
+-- name
+-- unit price
+-- new price (unit price * 1.1)
+
+SELECT 
+	name, 
+	unit_price, 
+	unit_price, unit_price * 1.1 AS new_price
+FROM products
+
+
+
+-- WHERE STATEMENT - find speicific record
+
+SELECT *
+FROM customers
+WHERE points > 3000
+
+
+-- > GREATER THAN
+-- >= GREATER THAN OR EQUAL TO
+-- < ESS THAN
+-- <= LESS THAN OR EQUAL TO
+-- = EQUAL
+-- != NOT EQUAL
+-- <> NOT EQUAL
+
+
+SELECT *
+FROM customers
+WHERE state = 'VA'  /  WHERE state != 'VA' *vice versa*
+
+-- EXERCISE
+
+SELECT *
+FROM customers
+WHERE birth_date > '1990-01-01' YYYY-MM-DD format
+
+SELECT *
+FROM orders
+WHERE order_date >= '2022-01-01'
+
+-- if not show the data or null it means nothing
