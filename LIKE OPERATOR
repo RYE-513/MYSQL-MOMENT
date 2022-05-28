@@ -1,0 +1,32 @@
+-- LIKE OPERATOR
+
+SELECT *
+FROM customers
+WHERE last_name LIKE 'b%'
+
+'b%' means first letter of name
+'%b%' means anywhere in letter has a b
+'%y' means last letter of name
+
+SELECT *
+FROM customers
+WHERE last_name LIKE 'r__n'  -- ryan
+
+-- EXERCISE
+
+-- Get the customers whose
+-- addresses contain TRAIL or AVENUE
+SELECT *
+FROM customers
+WHERE address LIKE '%trail%' OR
+	address LIKE '%avenue%'
+
+-- phone number end with 9
+SELECT *
+FROM customers
+WHERE phone LIKE '%9'
+
+-- vice versa
+SELECT *
+FROM customers
+WHERE phone NOT LIKE '%9'
