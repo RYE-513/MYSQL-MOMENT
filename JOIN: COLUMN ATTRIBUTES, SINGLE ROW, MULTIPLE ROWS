@@ -1,0 +1,49 @@
+-- COLUMN ATTRIBUTES
+-- sql_store/tables/customers/design mode *middle icon*
+
+-- much better to use "VARCHAR" instead of "CHAR" to not waste spaces
+-- VARCHAR(50) - the 50 indicate the store strings
+
+Primary Key (PK) - customer_id, yellwo key icon this means uniquely identified
+Not Null (NN) - this column can accept null values or not
+Auto Increment (AI) - often used with primary key columns
+ it used to add more queries
+Default Expression - declare if its Null or '0'
+
+
+
+-- INSERTING SINGLE ROW
+
+-- not a number because every queries should be unique
+
+INSERT INTO customers (
+	last_name,	
+	first_name, 
+	birth_date,
+	address,
+	city,
+	state)
+VALUES (
+	'Briz', 
+	'Rye', 
+	'2001-05-13'
+	'address',
+	'city',
+	'CA')
+
+
+-- INSERTING MULTIPLE ROWS
+
+INSERT INTO shippers (name)
+VALUES ('Shipper1')
+       ('Shipper2')
+       ('Shipper3')
+
+
+-- EXERCISE
+-- Insert three rows in the products table
+
+INSERT INTO products (name,quantity_in_stock, unit_price)
+VALUES ('Product1', 10, 1.95),
+       ('Product2', 11, 1.95),
+       ('Product3', 12, 1.95)
