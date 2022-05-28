@@ -1,0 +1,56 @@
+-- OUTER JOINS
+
+USE sql_store;
+
+SELECT
+    c.customer_id,
+    c.first_name,
+    o.order_id
+FROM customers c
+JOIN orders o
+	ON c.customer_id = o.customer_id
+ORDER BY c.customer_id
+
+USE sql_store;
+
+SELECT
+    c.customer_id,
+    c.first_name,
+    o.order_id
+FROM customers c
+LEFT JOIN orders o
+	ON c.customer_id = o.customer_id
+ORDER BY c.customer_id
+
+-- LEFT JOIN - all the records from the left table, in this case customers are returned whether this condition is true or not.
+
+SELECT
+    c.customer_id,
+    c.first_name,
+    o.order_id
+FROM customers c
+RIGHT JOIN orders o
+	ON c.customer_id = o.customer_id
+ORDER BY c.customer_id
+
+SELECT
+    c.customer_id,
+    c.first_name,
+    o.order_id
+FROM orders o                     -- SWTICH
+RIGHT JOIN customers c
+	ON c.customer_id = o.customer_id   -- SWTICH
+ORDER BY c.customer_id
+
+-- RIGHT JOIN - all the records from the orders table are returned whether this condition is true or not
+
+
+-- EXERCISE
+
+SELECT
+	p.product_id,
+	p.name,
+	oi.quantity
+FROM products p
+LEFT JOIN order_items oi
+	ON p.product_id = oi.product_id
