@@ -1,0 +1,42 @@
+-- INSERTING HIERARCHICAL ROWS
+-- insert queries in multiple table
+
+INSERT INTO orders (customer_id, order_date, status)
+VALUES (1, '2019-01-01', 1);
+
+INSERT INTO order_items
+VALUES
+   (LAST_INSERT_ID(), 1, 1, 2.95)
+   (LAST_INSERT_ID(), 2, 1, 3.95)
+
+
+-- CREATING A COPY OF A TABLE
+
+CREATE TABLE orders_archived AS
+SELECT * FROM sql_store.orders
+
+-- Truncate table - use to delete all the queries
+
+INSERT INTO orders_archivbed
+SELECT *
+FROM orders
+WHERE order_date < '2019-01-01'
+
+-- EXERCISE
+
+USE sql_invoicing;
+
+CREATE TABLE invoices_archived AS
+SELECT
+   i.invoice_id,
+   i.number,
+   c.name AS client,
+   i.invoice_total,
+   i.payment_total,
+   i.invoice_date,
+   i.paymebnt_date
+   i.due_date
+FROM invoices i
+JOIN clients c
+   USING (client_id)
+WHERE payment_date IS NOT NULL
