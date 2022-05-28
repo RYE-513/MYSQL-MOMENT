@@ -1,0 +1,76 @@
+-- NULL OPERATOR means nothing
+
+SELECT *
+FROM customers
+WHERE phone IS NULL / IS NOT NULL 
+
+-- EXERCISE
+
+-- Get the orders that are not shipped
+SELECT *
+FROM customers
+WHERE shipper_id IS NULL
+
+
+
+-- ORDER BY - DESC and ASC
+
+SELECT *
+FROM customers
+ORDER BY first_name ASC -- A-Z
+
+SELECT *
+FROM customers
+ORDER BY state, first_name DESC -- Z-A
+
+SELECT first_name, last_name, 10 AS points
+FROM customers
+ORDER BY 1,2
+
+••• the 1 and 2 are the first_name and last_name
+••• to avoid confussion the first column will be the first to execute in SELCT * FROM
+
+-- EXERCISE
+
+order_id	product_id	 quantity	unit_price
+2		  1		    2		9.10	
+2	 	  4		    4		1.66
+2	    6       2		2.94
+
+SELECT *
+FROM order_items
+WHERE order_id = 2
+ORDER BY quantity * unit_price DESC
+
+SELECT *, quantity * unit_price AS total_price
+FROM order_items
+WHERE order_id = 2
+ORDER BY quantity * unit_price DESC
+
+SELECT *, quantity * unit_price AS total_price
+FROM order_items
+WHERE order_id = 2
+ORDER BY total_price DESC
+
+
+
+-- LIMIT OPERATOR
+
+SELECT *
+FROM customers
+LIMIT 3
+
+-- the specific 3 in limit will shown 3 data
+
+SELECT *
+FROM customers
+LIMIT 6,3 -- this is called "LIMIT OFFSET"
+--  1,2,3,4,5,6 will not shown, the 6, "3" will shown the three specific from 6
+
+-- EXERCISE
+
+-- Loyal Customers
+SELECT *
+FROM customers
+ORDER BY points DESC
+LIMIT 3
