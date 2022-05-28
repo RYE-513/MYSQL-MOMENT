@@ -1,0 +1,44 @@
+USE sql_store;
+SELECT customer_id, first_name
+
+
+-- LOCATE SPECIFIC
+
+SELECT * FROM customers
+WHERE customer_id = 1
+ORDER BY first_name
+
+-- ctrl + shift + enter - to execute all the database specific\
+-- "--" comment
+-- WHITE SPACE ARE IGNORED
+-- '*' means "select all"
+
+
+
+-- ADDING GIVEN VALUE
+
+SELECT last_name, first_name, points + 10
+FROM customers
+
+
+
+-- ADDING GIVEN VALUE COMPLEX SYNTAX
+
+SELECT 
+    last_name, 
+    first_name, 
+    points, points + 10, 
+    points * 10 + 10
+FROM customers
+
+
+
+-- AS STATEMENT - 'AS' keyword is make a new set of column
+
+USE sql_store;
+SELECT
+	last_name,
+    first_name,
+    points,
+    (points + 10) * 100 AS discount_factor
+FROM customers
