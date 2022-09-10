@@ -1,0 +1,66 @@
+____
+𝗪𝗛𝗔𝗧 𝗜𝗦 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘
+___
+• Collection of data in Table or File Format
+• Access, Manage, Organize, Record, Update, Delete and Insert Data. [ AMORUDI ]
+• Declarative or Non-Procedural programming
+___
+𝗪𝗛𝗔𝗧 𝗜𝗦 𝗠𝗬𝗦𝗤𝗟?
+___
+MY - Michael Widenius Daughter's first name "My Widenius".
+SQL - Structured Query Language a DQL Programming type
+
+• Open Source Software and RDBMS Table Format.
+• Support Multiple Commands
+• Case Insensitive
+• Whitespace are Ignored
+___
+𝗠𝗬𝗦𝗤𝗟 𝗜𝗗𝗘
+___
+MySQL WORKBENCH
+• Front End/Back End Visuals
+• RDBMS means Table Format
+• Single Database Software
+
+XAMPP (Cross Platform, Apache, MySQL, PHP, Perl)
+• Back End Visuals
+• RDBMS means Table Format
+• Multiple Database Software
+
+MyPHPAdmin (for Web Server Database)
+• Front End Visuals
+• DBMS means File Format
+___
+𝗧𝗬𝗣𝗘 𝗢𝗙 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘
+___
+DBMS - Database Management System
+• Stores data in a "File Format"
+• Handle "small" amount of data
+• Support "single" users at a time
+
+RDBMS - Relational Database Management System
+• Stores data only in "Table Format"
+• Handle "huge" amount of data
+• Support "multiple" users at a time
+___
+𝗠𝗬𝗦𝗤𝗟 𝗦𝗘𝗥𝗩𝗘𝗥 𝗦𝗧𝗢𝗥𝗔𝗚𝗘 𝗘𝗡𝗚𝗜𝗡𝗘
+___
+What is Storage Server Engine - a Software and Components of MySQL used to create, read, update between Disk and Memory.
+
+• MariaDB - Default server storage of XAMPP / MYSQL
+written in C, C++, Perl, Bash
+
+• InnoDB - Default server storage engine of MySQL balance of high reliability and high performance.
+written in C Language
+
+• MyIsam - Old Default server storage engine of MySQL
+written in C Language.
+
+• Other SSE - BerkeleyDB, TokuDB, XtraDB, Federated
+___
+𝗢𝗧𝗛𝗘𝗥 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘 𝗦𝗢𝗙𝗧𝗪𝗔𝗥𝗘
+___
+• MariaDB - not only Server Storage Engine. it is Relational Development Management System.
+
+• PostgreSQL -  is used as the primary data store or data warehouse for many web, mobile, geospatial, and analytics applications. The latest major version is PostgreSQL 12.
+___
