@@ -1,0 +1,170 @@
+___
+• Support Multiple Commands
+• Case Insensitive
+• Whitespace are Ignored
+___
+STEP 1 | XAMPP INSTALLER
+___
+• Choose latest version |
+ https://www.apachefriends.org/download.html 
+___
+STEP 2 | OPEN XAMPP CONTROL PANEL
+___
+• START APACHE
+• START MYSQL
+
+• If theres an error | https://kinsta.com/knowledgebase/xampp-error-apache-shutdown-unexpectedly/
+___
+STEP 3 | IN CMD (WIN+R)
+___
+C:\Users\Administrator   cd ..
+C:\Users                            cd ..
+C:\                                      cd./xampp/mysql/bin
+C:\xampp\mysql\bin>     -mysql -u root -p -h 127.0.0.1
+Enter Password                [HIT ENTER]
+___
+STEP 4 | CREATING DATABASE
+___
+MariaDB [(none)]>           CREATE DATABASE BSCS;
+MariaDB [(none)]>           USE BSCS;
+
+MariaDB [*name of database*]>     CREATE TABLE RYE_BSCS
+*no semicolon*
+___
+STEP 5 | CREATING A TABLE COLUMNS
+___
+(REP_NUM CHAR(2) PRIMARY KEY,
+-> LAST_NAME CHAR(15),
+-> FIRST_NAME CHAR(15),
+-> STREET CHAR(15),
+-> CITY CHAR(15),
+-> STATE CHAR(2),
+-> ZIP CHAR(5),
+-> COMMISION DECIMAL(7,2),
+-> RATE DECIMAL(3,2) );
+
+••• Primary Key is a Unique Column and need to put at a start
+••• The Char(8) the numbers are the range of string/number unicodes
+••• In Decimal/Rate column no need to put Char() direct to
+••• (3,2) this is sample "," not "."
+___
+STEP 6 | INSERTING A DATA TO A TABLE
+___
+MariaDB [rye_bscs]> INSERT INTO RYE BSCS *no semicolon*
+-> VALUES
+-> ('20', 'KAISER', 'VALERIE', '624 RANDALL', 'GROVE', 'FL', '33321', '20542.50', '0,05'); 
+-> SHOWS: Query OK, 1 row affected, 2 warnings (0.090 sec)
+
+••• REPEAT:
+-> INSERT INTO
+-> VALUES
+-> DATA ENTRIES
+-> SHOWS: Query OK, ...
+••• Decimal Numbers in syntax are coma (13,5) not (13.5)
+___
+STEP 7 | CHECKING THE TABLE
+___
+MariaDB [rye_bscs]> SELECT * FROM RYE_BSCS;
+
+
+___
+                                    𝗢𝗧𝗛𝗘𝗥 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦
+___
+NAMING A TABLE
+___
+MariaDB [(database)]>  RENAME TABLE <NAME OF RECENT TABLE> TO <NEW NAME>;
+___
+REOPEN RECENT DATABASE/TABLE
+___
+MariaDB [(none)]> SHOW DATABASES;
+MariaDB [(none)]> USE <NAME OF DATABASE>;
+MariaDB [(none)]> SHOW TABLES;
+___
+DELETE DATABASE/TABLE
+___
+MariaDB [(none)]>  DROP DATABASE <NAME>;
+MariaDB [(database)]> DROP TABLE <NAME>;
+___
+CLOSE CMD
+___
+INPUT: EXIT
+___
+PREVIOUS CMD
+___
+INPUT: \q
+___
+WHERE/AND STATEMENT
+___
+MariaDB [N.O.T]> SHOW COLUMNS
+-> FROM TABLE_NAME;
+
+MariaDB [N.O.T]> SELECT COLUMN_1, COLUMN_2, COLUMN_3BALANCE
+-> FROM TABLE_NAME
+
+-> WHERE COLUMN_3BALANCE >= 2000 
+[the 2000 and 5000 is a sample number depends on data you put in balance.]
+
+-> AND COLUMN_3BALANCE <= 5000;
+
+THE COLUMN_1, COLUMN_2, COLUMN_3BALANCE WILL ONLY SHOWN SPECIFIC OF WHERE/AND STATEMENT
+
+___
+ARITHMETIC OPERATORS OF TWO OR MORE COLUMNS
+___
+
+MariaDB [N.O.T]> SELECT COLUMN_1, COLUMN_2, (COLUMN_3BALANCE + COLUMN_4)
+-> FROM TABLE_NAME;
+
+THE COLUMN_1, COLUMN_2, (COLUMN_3BALANCE + COLUMN_4) WILL SHOWN
+
+________________________________________________
+ORDER BY ASCENDING AND DESCENDING
+- ASC means ASCENDING "A-Z" smallest to biggest
+- DESC means DESCENDING "Z-A" biggest to smallest
+___
+
+MariaDB [N.O.T]> SELECT COLUMN_1, COLUMN_2, COLUMN_3BALANCE
+-> FROM TABLE_NAME;
+-> ORDER BY COLUMN_3BALANCE DESC, COLUMN_1;
+
+OUT | **THE SPECIFIC COLUMN WILL SHOWN DESCENDING**
+
+___
+
+MariaDB [N.O.T]> SELECT COLUMN_1, COLUMN_2, COLUMN_3BALANCE
+-> FROM TABLE_NAME;
+-> ORDER BY COLUMN_3BALANCE ASC, COLUMN_1;
+
+OUT | **THE SPECIFIC COLUMN WILL SHOWN ASCENDING**
+---
+WHERE SPECIFIC LETTER SHOW
+-> SELECT COLUMN_1, COLUMN_2 FROM TABLE_NAME WHERE COLUMN_2 LIKE 'K%';
+---
+WHERE HOW MANY
+-> SELECT COLUMN_1, FROM TABLE_NAME WHERE COLUMN_2 > COLUMN_3;
+---
+WHERE IN OPERATOR
+-> SELECT COLUMN_1, COLUMN_2, COLUMN_3, FROM TABLE_NAME WHERE CLASS IN ('AP', 'SG');
+---
+WHERE SYNTAX RANGE NUMBER
+-> SELECT COLUMN_1, COLUMN_2, COLUMN_3, FROM TABLE_NAME WHERE COLUMN_3 <= 8500;
+---
+WHERE / AND SYNTAX SPECIFIC DATE
+-> SELECT COLUMN_1, FROM TABLE_NAME WHERE COLUMN_1 = 148 AND COLUMN_2 = '12/8/2022';
+---
+WHERE SYNTAX (OR SPECIFIC SHOW)
+-> SELECT COLUMN_1, COLUMN_2, COLUMN_3, FROM TABLE_NAME WHERE COLUMN_3 = '30' OR COLUMN_3 = '60';
+---
+WHERE SYNTAX (WHERE NOT CLASS)
+-> SELECT COLUMN_1, COLUMN_2 FROM TABLE_NAME WHERE NOT CLASS = 'SG';
+*THE 'SG' RECORDS DATA WILL NOT BE SHOWN*
+---
+WHERE SYNTAX (ON_HAND SPECIFIC SHOW)
+-> SELECT COLUMN_1, COLUMN_2, ON_HAND FROM TABLE_NAME WHERE ON_HAND BETWEEN 10 AND 25;
+---
+WHERE SYNTAX PRICE
+-> SELECT COLUMN_1, COLUMN_2, ON_HAND * PRICE AS ON_HAND_VALUE FROM TABLE_NAME;
+---
+WHERE SYNTAX PRICE
+-> SELECT COLUMN_1, COLUMN_2, ON_HAND * PRICE AS ON_HAND_VALUE FROM TABLE_NAME WHERE ON_HAND * PRICE > 7500;
+____
