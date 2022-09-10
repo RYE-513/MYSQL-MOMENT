@@ -1,0 +1,905 @@
+USE sql_store;
+SELECT customer_id, first_name
+---
+LOCATE SPECIFIC
+---
+SELECT * FROM customers
+WHERE customer_id = 1
+ORDER BY first_name
+
+••• ctrl + shift + enter - to execute all the database specific\
+••• -- comment
+••• WHITE SPACE ARE IGNORED
+••• '*' means "select all"
+---
+ADDING GIVEN VALUE
+----
+SELECT last_name, first_name, points + 10
+FROM customers
+---
+ADDING GIVEN VALUE COMPLEX SYNTAX
+---
+SELECT 
+    last_name, 
+    first_name, 
+    points, points + 10, 
+    points * 10 + 10
+FROM customers
+---
+AS STATEMENT - 'AS' keyword is make a new set of column
+---
+USE sql_store;
+SELECT
+	last_name,
+    first_name,
+    points,
+    (points + 10) * 100 AS discount_factor
+FROM customers
+---
+SELECT DISTINCT is to avoid duplicate
+---
+SELECT DISTINCT state
+FROM customers
+---
+EXERCISE
+---
+--- Return all the products
+-- name
+-- unit price
+-- new price (unit price * 1.1)
+
+SELECT 
+	name, 
+	unit_price, 
+	unit_price, unit_price * 1.1 AS new_price
+FROM products
+---
+WHERE STATEMENT - find speicific record
+---
+SELECT *
+FROM customers
+WHERE points > 3000
+
+
+> GREATER THAN
+>= GREATER THAN OR EQUAL TO
+< ESS THAN
+<= LESS THAN OR EQUAL TO
+= EQUAL
+!= NOT EQUAL
+<> NOT EQUAL
+
+
+SELECT *
+FROM customers
+WHERE state = 'VA'  /  WHERE state != 'VA' *vice versa*
+---
+EXERCISE
+---
+SELECT *
+FROM customers
+WHERE birth_date > '1990-01-01' YYYY-MM-DD format
+
+SELECT *
+FROM orders
+WHERE order_date >= '2022-01-01'
+
+••• if not show the data or null it means nothing
+---
+AND, OR, NOT OPERATORS
+---
+SELECT *
+FROM customers
+WHERE birth_date >= '1990-01-01' AND points > 1000
+
+-- both these conditions are true
+
+SELECT *
+FROM customers
+WHERE birth_date >= '1990-01-01' OR points > 1000
+
+-- the first condition is false and the one is true
+
+SELECT *
+FROM customers
+WHERE birth_date >= '1990-01-01' OR points > 1000
+	AND state = 'VA'
+
+••• the first logical operator will be first to execute
+••• CLARITY
+
+SELECT *
+FROM customers
+WHERE birth_date >= '1990-01-01' OR 
+	(points > 1000 AND state = 'VA')
+
+SELECT *
+FROM customers
+WHERE NOT (birth_date >= '1990-01-01' OR points > 1000) is just like WHERE birth_date <= '1990-01-01' AND points <= 1000
+
+-- both these conditions are false
+---
+EXERCISE
+---
+-- From the order_items table, get the items
+-- for order #6
+-- where the total price is greater than 30
+
+SELECT *
+FROM order_items
+WHERE order_id = 6 AND  unit_price * quantity > 30
+---
+IN OPERATOR
+---
+SELECT *
+FROM customers
+WHERE state = 'VA' OR state = 'GA' OR state = 'FL' 
+
+-- much better to use 
+
+SELECT *
+FROM customers
+WHERE state IN ('VA','FL','GA')
+
+-- excluded specific data
+
+SELECT *
+FROM customers
+WHERE state NOT IN ('VA','FL','GA')
+---
+EXERCISE
+---
+-- Return products with
+-- quantity in stock equal to 49,38,72
+
+
+SELECT *
+FROM products
+WHERE quantity_in_stock IN (49,38,72)
+---
+BETWEEN OPERATOR
+----
+SELECT *
+FROM customers
+WHERE points >= 1000 AND points <= 3000
+
+-- much better to use
+
+SELECT *
+FROM customers
+WHERE points BETWEEN 1000 AND 3000
+---
+EXERCISE
+---
+-- Return customers born
+-- between 1/1/1190 and 1/1/20000
+
+SELECT *
+FROM customers
+WHERE birth_date BETWEEN '1990/01/01' AND '2000/01/01'
+---
+LIKE OPERATOR
+---
+SELECT *
+FROM customers
+WHERE last_name LIKE 'b%'
+
+'b%' means first letter of name
+'%b%' means anywhere in letter has a b
+'%y' means last letter of name
+
+SELECT *
+FROM customers
+WHERE last_name LIKE 'r__n'  -- ryan
+---
+EXERCISE
+---
+-- Get the customers whose
+-- addresses contain TRAIL or AVENUE
+SELECT *
+FROM customers
+WHERE address LIKE '%trail%' OR
+	address LIKE '%avenue%'
+
+-- phone number end with 9
+SELECT *
+FROM customers
+WHERE phone LIKE '%9'
+
+-- vice versa
+SELECT *
+FROM customers
+WHERE phone NOT LIKE '%9'
+---
+REGEXP OPERATOR means "regular expression"
+---
+SELECT *
+FROM customers
+WHERE last_name LIKE '%field%'
+
+-- much better to use
+
+SELECT *
+FROM customers
+WHERE last_name REGEXP 'field'
+
+REGEXP '[gim]e' is ge,ie,me
+REGEXP '[a-z]e' is ae,be,ce,de,ee .... ze
+
+'^field' represent first string
+'field$' represent end string
+'field|mac|rose' represent multiple search pattern
+'^field|mac|rose' represent combined if the word "field" declare as first string and there is no data in it the rest multiple search pattern will shown
+
+-- ^ beginning
+-- $ end
+-- | logical or
+-- [abcd] specific
+== [a-f] specific range
+---
+EXERCISE
+---
+SELECT *
+FROM customers
+WHERE first_name REGEXP 'elka|ambur'
+-- first names are ELKA or AMBUR
+
+SELECT *
+FROM customers
+WHERE last_name REGEXP 'ey$|on$'
+-- last names end with EY or ON
+
+SELECT *
+FROM customers
+WHERE last_name REGEXP '^my|se'
+-- last names start with MY or contains SE
+
+SELECT *
+FROM customers
+WHERE last_name REGEXP 'b[ru]' / 'bu|br'
+-- last names contain B followed by R or U
+---
+NULL OPERATOR means nothing
+----
+SELECT *
+FROM customers
+WHERE phone IS NULL / IS NOT NULL 
+---
+EXERCISE
+---
+-- Get the orders that are not shipped
+SELECT *
+FROM customers
+WHERE shipper_id IS NULL
+---
+ORDER BY - DESC and ASC
+---
+SELECT *
+FROM customers
+ORDER BY first_name ASC -- A-Z
+
+SELECT *
+FROM customers
+ORDER BY state, first_name DESC -- Z-A
+
+SELECT first_name, last_name, 10 AS points
+FROM customers
+ORDER BY 1,2
+
+••• the 1 and 2 are the first_name and last_name
+••• to avoid confussion the first column will be the first to execute in SELCT * FROM
+---
+EXERCISE
+---
+order_id	product_id	 quantity	unit_price
+2		  1		    2		9.10	
+2	 	  4		    4		1.66
+2	      6         2		2.94
+
+SELECT *
+FROM order_items
+WHERE order_id = 2
+ORDER BY quantity * unit_price DESC
+
+SELECT *, quantity * unit_price AS total_price
+FROM order_items
+WHERE order_id = 2
+ORDER BY quantity * unit_price DESC
+
+SELECT *, quantity * unit_price AS total_price
+FROM order_items
+WHERE order_id = 2
+ORDER BY total_price DESC
+---
+LIMIT OPERATOR
+---
+SELECT *
+FROM customers
+LIMIT 3
+
+••• the specific 3 in limit will shown 3 data
+
+SELECT *
+FROM customers
+LIMIT 6,3 -- this is called "LIMIT OFFSET"
+••• 1,2,3,4,5,6 will not shown, the 6, "3" will shown the three specific from 6
+---
+EXERCISE
+---
+-- Loyal Customers
+SELECT *
+FROM customers
+ORDER BY points DESC
+LIMIT 3
+---
+INNER JOIN is known as 'JOIN'
+---
+SELECT *
+FROM orders
+JOIN customers
+	ON orders.customer_id = customers.customer_id
+
+SELECT order_id, first_name, last_name
+FROM orders
+JOIN customers
+	ON orders.customer_id = customers.customer_id
+
+SELECT order_id, orders.customer_id, first_name, last_name ••• orders.customer_id need to put the 'orders.' because MYSQL will be confuse about ON operator
+FROM orders
+JOIN customers
+	ON orders.customer_id = customers.customer_id  
+
+SELECT order_id, o.customer_id, first_name, last_name 
+FROM orders o
+JOIN customers c
+	ON o.customer_id = c.customer_id
+---
+EXERICSE
+---
+SELECT order_id, oi.product_id, quantity, oi.unit_price
+FROM order_items oi
+JOIN products p ON oi.product_id = p.product_id
+---
+JOINING ACROSS DATABASE
+---
+••• merge the table from another/different database
+
+SELECT *
+FROM order_items oi
+JOIN sql_inventory.products p
+	ON oi.product_id = p.product_id
+
+USE sql_inventory;
+
+SELECT *
+FROM sql_store.order_items oi
+JOIN products p
+	ON oi.product_id = p.product_id
+
+••• you only have prefix the table that are not part of current database
+••• the query will be different depending on the database
+---
+SELF JOIN
+---
+USE sql_hr;
+
+SELECT *
+FROM employees e
+JOIN employees m
+	ON e.reports_to = m.employee_id
+
+USE sql_hr;
+
+SELECT 
+	e.employee_id,
+	e.first_name,
+	m.first_name AS manager
+FROM employees e
+JOIN employees m
+	ON e.reports_to = m.employee_id
+---
+---
+JOINING MULTIPLE TABLES
+---
+USE sql_store;
+
+SELECT *
+FROM orders o
+JOIN customers c
+	ON o.customer_id = c.customer_id
+JOIN order_statuses os
+	ON o.status = os.order_status_id
+
+USE sql_store;
+
+SELECT
+	o.order_id,
+	o.order_date,
+	c.first_name,
+	c.last_name,
+	os.name AS status
+FROM orders o
+JOIN customers c
+	ON o.customer_id = c.customer_id
+JOIN order_statuses os
+	ON o.status = os.order_status_id
+---
+EXERCISE
+---
+USE sql_invoicing;
+
+SELECT
+	p.date,
+	p.invoice_id,
+	p.amount,
+      c.name,
+      pm.name
+FROM payments p
+JOIN clients c
+	ON p.client_id = c.client_id
+JOIN payment_methods pm
+	ON p.payment_method = pm.payment_method_id
+---
+COMPOUND JOIN CONDITIONS
+---
+-- EXPLICIT JOIN SYNTAX
+
+SELECT *
+FROM order_items oi
+JOIN order_item_notes oin
+	ON oi.order_id = oin.order_id
+	AND oi.product_id = oin.product_id
+
+-- IMPLICIT JOIN SYNTAX
+
+SELECT *
+FROM orders o, customers c 
+WHERE o.customer_id = c.customer_id ••• if you forgot the WHERE statement it will print multiple queries
+---
+OUTER JOINS
+---
+USE sql_store;
+
+SELECT
+    c.customer_id,
+    c.first_name,
+    o.order_id
+FROM customers c
+JOIN orders o
+	ON c.customer_id = o.customer_id
+ORDER BY c.customer_id
+
+USE sql_store;
+
+SELECT
+    c.customer_id,
+    c.first_name,
+    o.order_id
+FROM customers c
+LEFT JOIN orders o
+	ON c.customer_id = o.customer_id
+ORDER BY c.customer_id
+
+••• LEFT JOIN - all the records from the left table, in this case customers are returned whether this condition is true or not.
+
+SELECT
+    c.customer_id,
+    c.first_name,
+    o.order_id
+FROM customers c
+RIGHT JOIN orders o
+	ON c.customer_id = o.customer_id
+ORDER BY c.customer_id
+
+SELECT
+    c.customer_id,
+    c.first_name,
+    o.order_id
+FROM orders o                     -- SWTICH
+RIGHT JOIN customers c
+	ON c.customer_id = o.customer_id   -- SWTICH
+ORDER BY c.customer_id
+
+••• RIGHT JOIN - all the records from the orders table are returned whether this condition is true or not
+---
+EXERCISE
+----
+SELECT
+	p.product_id,
+	p.name,
+	oi.quantity
+FROM products p
+LEFT JOIN order_items oi
+	ON p.product_id = oi.product_id
+---
+OUTER JOIN BETWEEN MULTIPLE TABLES
+---
+SELECT
+    c.customer_id,
+    c.first_name,
+    o.order_id,
+    sh.name AS shipper
+FROM customers c
+LEFT JOIN orders o
+	ON c.customer_id = o.customer_id
+JOIN shippers sh
+	ON o.shipper_id = sh.shipper_id
+ORDER BY c.customer_id
+---
+EXERCISE
+---
+SELECT
+    o. order_id,
+    o.order_date,
+    c.first_name AS customer,
+    sh.name AS shipper,
+    os.name AS status
+FROM orders o
+JOIN customers c
+    ON o.customer_id = c.customer_id
+LEFT JOIN shippers sh
+    ON o.shipper_id = sh.shipper_id
+JOIN order_statuses os
+    ON o.status = os.order_status_id
+---
+SELF OUTER JOINTS
+---
+USE sql_hr;
+
+SELECT
+   e.employee_id,
+   e.first_name,
+   m.first_name AS manager
+FROM employees e
+LEFT JOIN employees m
+   ON e.reports_to = m.employee_id
+---
+USING clause 
+---
+USE sql_store;
+
+SELECT
+   o.order_id,
+   c. first_name,
+   sh.name AS shipper
+FROM orders o
+JOIN customers c
+    -- ON o.customer_id = c.customer_id
+    USING (customer_id)
+LEFT JOIN shippers sh
+    USING (shipper_id)	
+
+SELECT *
+FROM order_items oi
+JOIN order_item_notes oin
+	-- ON oi.order_id = oin.order_id AND
+	     -- oi.product_id = oin.product_id
+USING (order_id, product_id)
+---
+EXERCISE
+---
+USE sql_invoicing;
+
+SELECT
+     p.date,
+     c.name AS client,
+     p.amount,
+     pm.name AS payment_method
+FROM payments p
+JOIN clients c USING (client_id)
+JOIN payment_methods pm
+   ON p.payment_method = pm.payment_method_id
+---
+NATURAL JOINS
+---
+USE sql_store;
+
+SELECT 
+     o.order_id,
+     c.first_name
+FROM orders o
+NATURAL JOIN customers c
+
+••• NATURAL JOIN are really easy to code but they can be a little bit dangerous and print unexpected result
+---
+CROSS JOINS
+---
+USE sql_store;
+
+SELECT
+     c.first_name AS customer,
+     p.name AS product
+FROM customers c
+CROSS JOIN products p
+ORDER BY c.first_name
+---
+EXERCISE
+---
+--- Do a CROSS JOIN between shippers and products
+
+--- IMPLICIT
+
+SELECT
+     sh.name AS shipper,
+     p.name AS product
+FROM shippers sh, products p
+ORDER BY sh.name
+
+-- EXPLICIT
+
+SELECT
+     sh.name AS shipper,
+     p.name AS product
+FROM shippers sh
+CROSS JOIN products p
+ORDER BY sh.name
+---
+UNION - joining two different queries in one result
+___
+SELECT *
+   order_id,
+   order_date,
+   'ACTIVE' AS status
+FROM orders
+WHERE order_date >= '2019-01-01'
+___
+SELECT *
+   order_id,
+   order_date,
+   'ACTIVE' AS status
+FROM orders
+WHERE order_date >= '2019-01-01'
+UNION
+SELECT *
+   order_id,
+   order_date,
+   'ARCHIVED' AS status
+FROM orders
+WHERE order_date >= '2019-01-01'
+___
+SELECT first_name
+FROM customers
+UNION
+SELECT name
+FROM shippers
+
+-- UNION statement will be work if the both tables are equal queries if not it result to an error
+e.g.
+
+SELECT first_name, last_name
+FROM customers
+UNION
+SELECT name
+FROM shippers
+
+SELECT name AS full_name
+FROM shippers
+UNION
+SELECT first_name
+FROM customers
+___
+EXERCISE
+___
+USE sql_store;
+
+SELECT
+   customer_id,
+   first_name,
+   points,
+   'Bronze', AS type
+FROM customers
+WHERE points < 2000
+UNION
+SELECT
+   customer_id,
+   first_name,
+   points,
+   'Silver', AS type
+FROM customers
+WHERE points BETWEEN 2000 AND 3000
+UNION
+SELECT
+   customer_id,
+   first_name,
+   points,
+   'Gold', AS type
+FROM customers
+WHERE points > 3000
+ORDER BY first_name
+---
+COLUMN ATTRIBUTES
+sql_store/tables/customers/design mode *middle icon*
+---
+••• much better to use "VARCHAR" instead of "CHAR" to not waste spaces
+••• VARCHAR(50) - the 50 indicate the store strings
+
+Primary Key (PK) - customer_id, yellwo key icon this means uniquely identified
+Not Null (NN) - this column can accept null values or not
+Auto Increment (AI) - often used with primary key columns
+ it used to add more queries
+Default Expression - declare if its Null or '0'
+---
+INSERTING SINGLE ROW
+---
+-- not a number because every queries should be unique
+
+INSERT INTO customers (
+	last_name,	
+	first_name, 
+	birth_date,
+	address,
+	city,
+	state)
+VALUES (
+	'Briz', 
+	'Rye', 
+	'2001-05-13'
+	'address',
+	'city',
+	'CA')
+---
+INSERTING MULTIPLE ROWS
+---
+INSERT INTO shippers (name)
+VALUES ('Shipper1')
+       ('Shipper2')
+       ('Shipper3')
+---
+EXERCISE
+---
+-- Insert three rows in the products table
+
+INSERT INTO products (name,quantity_in_stock, unit_price)
+VALUES ('Product1', 10, 1.95),
+       ('Product2', 11, 1.95),
+       ('Product3', 12, 1.95)
+---
+INSERTING HIERARCHICAL ROWS
+---
+-- insert queries in multiple table
+
+INSERT INTO orders (customer_id, order_date, status)
+VALUES (1, '2019-01-01', 1);
+
+INSERT INTO order_items
+VALUES
+   (LAST_INSERT_ID(), 1, 1, 2.95)
+   (LAST_INSERT_ID(), 2, 1, 3.95)
+---
+CREATING A COPY OF A TABLE
+---
+CREATE TABLE orders_archived AS
+SELECT * FROM sql_store.orders
+
+••• Truncate table - use to delete all the queries
+
+INSERT INTO orders_archivbed
+SELECT *
+FROM orders
+WHERE order_date < '2019-01-01'
+---
+EXERCRISE
+---
+USE sql_invoicing;
+
+CREATE TABLE invoices_archived AS
+SELECT
+   i.invoice_id,
+   i.number,
+   c.name AS client,
+   i.invoice_total,
+   i.payment_total,
+   i.invoice_date,
+   i.paymebnt_date
+   i.due_date
+FROM invoices i
+JOIN clients c
+   USING (client_id)
+WHERE payment_date IS NOT NULL
+---
+UPDATING A SINGLE ROW
+---
+UPDATE invoices
+SET payment_total = 10, payment_date = '2019-01-03'
+WHERE invoice_id = 1
+
+UPDATE invoices
+SET payment_total = DEFAULT, payment_date = NULL
+WHERE invoice_id = 1
+
+UPDATE invoices
+SET 
+   payment_total = invoice_total * 0.5
+   payment_date = due_date
+WHERE invoice_id = 1
+---
+UPDATING MULTIPLE ROWS
+---
+UPDATE invoices
+SET 
+   payment_total = invoice_total * 0.5
+   payment_date = due_date
+WHERE client_id = 3
+
+UPDATE invoices
+SET 
+   payment_total = invoice_total * 0.5
+   payment_date = due_date
+WHERE client_id IN (3,4)
+---
+EXERCISE
+---
+-- give any customers born before 1990
+-- 50 extra points
+
+USE sql_store;
+
+UPDATE customers
+SET points = points + 50
+WHERE birth_date < '1990-01-01'
+---
+USING SUBQUERIES IN UPDATES
+---
+-- single update subquerie
+
+SET 
+   payment_total = invoice_total * 0.5
+   payment_date = due_date
+WHERE client_id =
+		(SELECT client_id
+		FROM clients
+		WHERE name = 'Myworks')
+
+-- multiple update subqueire
+
+SET 
+   payment_total = invoice_total * 0.5
+   payment_date = due_date
+WHERE client_id IN
+		(SELECT client_id
+		FROM clients
+		WHERE state IN ('CA', 'NY'))
+
+-- to locate the queries null
+
+SET 
+   payment_total = invoice_total * 0.5
+   payment_date = due_date
+
+SELECT *
+FROM invoices
+WHERE payment_date IS NULL
+
+SET 
+   payment_total = invoice_total * 0.5
+   payment_date = due_date
+   WHERE payment_date IS NULL
+---
+EXERCISE
+---
+UPDATE orders
+SET comments = 'Gold customer'
+WHERE customer_id IN
+	(SELECT customer_id
+	FROM customers
+	WHERE points > 3000)
+---
+DELETING ROWS
+---
+DELETE FROM invoices
+WHERE invoices_id = 1
+
+SELECT *
+FROM clients
+WHERE name = 'Myworks'
+
+DELETE FROM invoices
+WHERE invoices_id = (
+   SELECT *
+   FROM clients
+   WHERE name = 'Myworks'
+)
+---
+
+
+
